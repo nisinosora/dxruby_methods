@@ -4,8 +4,7 @@ require 'dxruby'
 #HPゲージの処理
 #-------------------------
 class HpGage
-  attr_accessor :x, :y, :height, :hp, :color
-  attr_reader :maxhp
+  attr_accessor :x, :y, :height, :hp, :maxhp,:color
   def initialize(x: 0, y: 0, height: 10, width: 100, hp: 100, maxhp: 100, color: C_WHITE)
     #----------------
     #x,y : 座標
