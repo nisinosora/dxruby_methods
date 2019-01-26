@@ -109,6 +109,40 @@ class Hit
       end
     end
   end
+
+  def self.check_with_index(ob1, ob2)
+    if ob1.class == Array && ob2.class == Array
+      ob1.each_with_index do |ob1, index|
+        ob2.each_with_index do |ob2, index2|
+          if Sprite.check(ob1, ob2)
+            yield(index, index2, ob1, ob2) if block_given?
+          end
+        end
+      end
+    end
+
+    if ob1.class == Array && ob2.class == Sprite
+      ob1.each_with_index do |ob1, index|
+        if Sprite.check(ob1, ob2)
+          yield(index, ob1) if block_given?
+        end
+      end
+    end
+
+    if ob2.class == Array && ob1.class == Sprite
+      ob2.each_with_index do |ob2, index|
+        if Sprite.check(ob1, ob2)
+          yield(index, ob2) if block_given?
+        end
+      end
+    end
+
+    if ob1.class == Sprite && ob2.class == Sprite
+      if Sprite.check(ob1, ob2)
+        yield if block_given?
+      end
+    end
+  end
 end
 
 #-----------------

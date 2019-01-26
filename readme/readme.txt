@@ -38,7 +38,7 @@ x, y, height, hp, maxhp, color
 
 Hitクラス
 ・Spriteクラスでの当たり判定をさらに使いやすくしたクラスです。
-Hit.check(), Hit.check_index
+Hit.check(), Hit.check_index(), Hit.check_with_index()
 ・引数(2つ)
 	Spriteクラスか、Spriteクラスを含む配列
 	※SpriteクラスはDxrubyで独自に作成されているクラスです。
@@ -49,10 +49,18 @@ Hit.check(), Hit.check_index
 使用例：
 	s1 = Sprite.new(0, 50, Image.new(50, 50, C_WHITE))
 	s2 = Array.new(2) #配列を2つ生成
+	s3 = Array.new(2)
+	
 	s2.each_with_index do |s, index|
 	  #配列にSpriteを追加
 	  s2[index] = Sprite.new(50 * index, 0, Image.new(50, 50, C_BLUE))
 	end
+	
+	s3.each_with_index do |s, index|
+	  s3[index] = Sprite.new(50* index, 100, Image.new(50, 50, C_GREEN))
+	end
+	
+	
 	mouse = Sprite.new(0, 0, Image.new(1, 1, C_WHITE))
 	mouse.alpha = 0 #不透明度を0%にする。
 		
@@ -67,6 +75,13 @@ Hit.check(), Hit.check_index
 	  
 	  Hit.check_index(s2, mouse) do |index|
 	    Window.draw_font_ex(30, 100, "#{index}に当たりました!", Font.default)
+	  end
+	  
+	  Hit.check_wiht_index(s3, s2) do |index, index2, s3, s2|
+	    #当たることがないため記入例です。
+	    #index, index2にはそれぞれの要素番号が入ります。
+	    #s3, s2はobjectが入ります。
+	    #要素番号、オブジェクト両方使いたい場合の処理です。
 	  end
 	end
 	
