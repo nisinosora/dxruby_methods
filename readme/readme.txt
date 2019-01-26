@@ -1,4 +1,4 @@
-ReadMe
+﻿ReadMe
 
 利用方法
 ダウンロードしてそのまま使いたいフォルダに配置してください。
@@ -39,8 +39,8 @@ x, y, height, hp, maxhp, color
 Hitクラス
 ・Spriteクラスでの当たり判定をさらに使いやすくしたクラスです。
 Hit.check(), Hit.check_index
-・引数
-	Spriteクラスか、Spriteクラスを含む配列(2つ)
+・引数(2つ)
+	Spriteクラスか、Spriteクラスを含む配列
 	※SpriteクラスはDxrubyで独自に作成されているクラスです。
 	違うクラスの変数を入れても何も起きません。
 ・ブロック
@@ -80,8 +80,8 @@ BGMクラス
   
 使用例:
 
-bgm = BGM.new(ファイル名)
+	bgm = BGM.new(ファイル名)
 
-Window.loop do
-  bgm.play
-end
+	Window.loop do
+	  bgm.play
+	end
