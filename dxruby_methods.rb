@@ -31,6 +31,7 @@ class HpGage
 
   def draw
     @hp = @maxhp if @hp >= @maxhp
+    @hp = 0 if @hp < 0
     Sprite.draw(@bgcolor) unless @bgcolor == nil
     set_gage
     if @gage_value >= 1
@@ -179,7 +180,7 @@ end
 
 class SetInterval
   def initialize(sec)
-    @time = sec
+    @time = sec 
     @sec = 0
   end
 
