@@ -4,8 +4,8 @@ require 'dxruby'
 #HPゲージの処理
 #-------------------------
 class HpGage
-  attr_accessor :x, :y, :height, :hp, :maxhp,:color
-  def initialize(x: 0, y: 0, height: 10, width: 100, hp: 100, maxhp: 100, color: C_WHITE)
+  attr_accessor :x, :y, :height, :hp, :maxhp,:color, :bgcolor, :alpha, :bgalpha
+  def initialize(x: 0, y: 0, height: 10, width: 100, hp: 100, maxhp: 100, color: C_WHITE, bgcolor: nil, alpha: 100, bgalpha: 100)
     #----------------
     #x,y : 座標
     #height, width: 縦の長さと最大幅
@@ -20,14 +20,22 @@ class HpGage
     @hp = hp
     @maxhp = maxhp
     @color = color
+    @alpha = alpha
+    @bgalpha = bgalpha
+    unless bgcolor == nil
+      @bgcolor = Sprite.new(@x, @y, Image.new(@width, @height, bgcolor))
+      @bgcolor.alpha = @bgalpha
+    end
     set_gage
   end
 
   def draw
     @hp = @maxhp if @hp >= @maxhp
+    Sprite.draw(@bgcolor) unless @bgcolor == nil
     set_gage
-    if @gage_value > 0
+    if @gage_value >= 1
       @gage = Sprite.new(@x, @y, Image.new(@gage_value, @height, @color))
+      @gage.alpha = @alpha
       Sprite.draw(@gage)
     end
   end
@@ -163,8 +171,25 @@ class BGM
     end
   end
 
-  def stop
-    @play_check = true
+  def stop(val = true)
+    @play_check = val
     @bgm.stop
+  end
+end
+
+class SetInterval
+  def initialize(sec)
+    @time = sec
+    @sec = 0
+  end
+
+  def loop(val = true)
+    if val
+      @sec += 1
+      if @sec >= @time
+        yield
+        @sec = 0
+      end
+    end
   end
 end

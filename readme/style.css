@@ -1,0 +1,86 @@
+.link a{
+  display: inline-block;
+  max-width: 180px;
+  text-align: center;
+  background-color: #9ec34b;
+  font-size: 16px;
+  color: #FFF;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px 8px 32px;
+  border-radius: 4px;
+  position: relative;
+  margin: 5px;
+}
+.link a::before{
+  font-family: "FontAwesome";
+  content: "\f105";/* 好きなフォントアイコンを　*/
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  margin-top: -8px;
+}
+.link a:hover{
+  opacity: 0.8;
+}
+
+h1{
+  display: inline-block;
+}
+
+.text-border{
+  display: flex;
+  align-items: center
+}
+.text-border::before, .text-border::after{
+  content: "";
+  border-top: 1px solid black;
+  flex-grow: 1;
+  padding: 0;
+}
+.text-border::before{
+  margin-right: 5px;
+}
+.text-border::after{
+  margin-left: 5px;
+}
+
+.ac-cap{
+  padding-bottom: 10px;
+}
+
+.ac-cap label{
+  background-color: rgb(83, 221, 48);
+  text-align: center;
+  color: white;
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+  height: 30px;
+  transition: 1s;
+  transform: rotate(0deg);
+}
+.ac-cap label:hover{
+  cursor: pointer;
+}
+
+.ac-cap input,
+.sheen_hp input{
+  display: none;
+}
+
+.ac-cap .content{
+  height: 0;
+  width: 100%;
+  overflow: auto;
+  transition: 1s;
+}
+
+.ac-cap input:checked + .ac-title + .content{
+   height: 200px;
+   transition: 1s;
+}
+
+table{
+  border-collapse: collapse;
+}

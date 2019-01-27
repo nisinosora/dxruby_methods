@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="javascript/jquery-3.1.0.min.js"></script>
+  <script src="javascript/js.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <title>ReadMe</title>
+</head>
+<body>
+  <div class="link">
+    
+  </div>
+  <div class="main">
+    <section id="hp-gage section1">
+        <h1 class="text-border">HP-Gage</h1>
+        <div class="lists">
+          <div class="ac-cap">
+              <input type="checkbox" id="ac-cap1-1" name="ac-cap1">
+              <label for="ac-cap1-1" class="ac-title">引数</label>
+              <div class="content">
+                HpGage.new(x:, y:, width:, height:, hp:, maxhp:, color:, bgcolor:, alpha:, bgalpha:)<br>
+                <table border="1">
+                  <thead>
+                    <tr>
+                      <th>変数</th><th>説明</th><th>デフォルト値</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>x:, y:</td><td>ゲージを表示させる位置を指定します。</td><td>0</td>
+                    </tr>
+                    <tr>
+                      <td>width:</td><td>ゲージの横幅を指定します。</td><td>100</td>
+                    </tr>
+                    <tr>
+                      <td>height:</td><td>ゲージの高さを指定します。</td><td>10</td>
+                    </tr>
+                    <tr>
+                      <td>hp:</td><td>初期値を指定します。</td><td>100</td>
+                    </tr>
+                    <tr>
+                      <td>maxhp:</td><td>最大値を指定します。</td><td>100</td>
+                    </tr>
+                    <tr>
+                      <td>color:</td><td>ゲージの色を指定します。</td><td>C_WHITE(白)</td>
+                    </tr>
+                    <tr>
+                      <td>bgcolor:</td><td>ゲージの背景色を指定します。</td><td>nil(指定なし)</td>
+                    </tr>
+                    <tr>
+                      <td>alpha:, bgalpha:</td><td>不透明度を指定します。</td><td>100</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          
+            <div class="ac-cap">
+              <input type="checkbox" id="ac-cap1-2" name="ac-cap2">
+              <label for="ac-cap1-2" class="ac-title">関数</label>
+              <div class="content">    
+                <p>draw</p>
+                ゲージを表示します。
+              </div>
+          </div>
+        </div>
+      </section>
+    
+      <section id="hit sectinon2">
+        <h1 class="text-border">Hit</h1>
+        <div class="ac-cap">
+            <input type="checkbox" id="ac-cap2-1" name="ac-cap1">
+            <label for="ac-cap2-1" class="ac-title">引数</label>
+            <div class="content"> 
+              ob1, ob2 <br>
+              どちらも、Spriteクラスを使います。<br>
+              Spriteクラスが入っている配列でも問題ありません。
+            </div>
+          </div>
+        
+          <div class="ac-cap">
+            <input type="checkbox" id="ac-cap2-2" name="ac-cap2">
+            <label for="ac-cap2-2" class="ac-title">関数</label>
+            <div class="content">
+              <p>
+                  Hit.check(), Hit.check_index(), Hit.check_with_index()<br>
+                  それぞれブロック処理を行いますが、ブロックにより渡す値が変化します。<br>
+                  なお、2つの引数が両方ともSpriteクラスの場合、値を渡すことはありません。<br>
+              </p>
+              <p>
+                Hit.check()は、両方が配列になっている場合、それぞれのオブジェクトを渡します。<br>
+                どちらか片方が配列になっている場合、その配列側のオブジェクトを渡します。<br>
+              </p>
+              <p>
+                Hit.check_index()は、両方が配列になっている場合、それぞれの要素番号を渡します。<br>
+                どちらか片方が配列になっている場合、その配列側の要素番号を渡します。
+              </p>
+              <p>
+                Hit.check_with_index()は、両方が配列になっている場合、それぞれの要素番号とオブジェクトを渡します。<br>
+                どちらか片方が配列になっている場合、その配列側の要素番号とオブジェクトを渡します。
+              </p>
+            </div>
+        </div>
+      </section>
+    
+      <section id="bgm section3">
+        <h1 class="text-border">BGM</h1>
+        <div class="ac-cap">
+            <input type="checkbox" id="ac-cap3-1" name="ac-cap1">
+            <label for="ac-cap3-1" class="ac-title">引数</label>
+            <div class="content"> 
+              <p>音楽ファイルです。</p>
+              <p>wavかmidファイルを入力してください。</p>
+            </div>
+          </div>
+        
+          <div class="ac-cap">
+            <input type="checkbox" id="ac-cap3-2" name="ac-cap2">
+            <label for="ac-cap3-2" class="ac-title">関数</label>
+            <div class="content">    
+              <p>play, stop</p>
+              <p>playは、再生です。</p>
+              <p>stopは、停止です。</p>
+            </div>
+        </div>
+      </section>
+    
+      <section id="setinterval section4">
+        <h1 class="text-border">SetInterval</h1>
+        <div class="ac-cap">
+            <input type="checkbox" id="ac-cap4-1" name="ac-cap1">
+            <label for="ac-cap4-1" class="ac-title">引数</label>
+            <div class="content"> 
+              <p>何秒ごとに処理を行うかを判定するため、秒数を入力してください。</p>
+            </div>
+          </div>
+        
+          <div class="ac-cap">
+            <input type="checkbox" id="ac-cap4-2" name="ac-cap2">
+            <label for="ac-cap4-2" class="ac-title">関数</label>
+            <div class="content">    
+              <p>loop</p>
+              <p>ブロックで、行いたい処理をブロックの中に記入します。</p>
+            </div>
+        </div>
+      </section>
+  </div>
+</body>
+</html>
