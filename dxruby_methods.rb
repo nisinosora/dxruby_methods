@@ -5,7 +5,7 @@ require 'dxruby'
 #-------------------------
 class HpGage
   attr_accessor :x, :y, :height, :hp, :maxhp,:color, :bgcolor, :alpha, :bgalpha
-  def initialize(x: 0, y: 0, height: 10, width: 100, hp: 100, maxhp: 100, color: C_WHITE, bgcolor: nil, alpha: 100, bgalpha: 100)
+  def initialize(x: 0, y: 0, height: 10, width: 100, hp: 100, maxhp: 100, color: C_WHITE, bgcolor: nil, alpha: 255, bgalpha: 255)
     #----------------
     #x,y : 座標
     #height, width: 縦の長さと最大幅
@@ -191,6 +191,42 @@ class SetInterval
         yield
         @sec = 0
       end
+    end
+  end
+end
+
+class TextSelect
+  attr_accessor :text, :size, :x, :y, :color, :bgcolor, :alpha
+  attr_reader :mouse
+  def initialize(x: 0, y: 0, text: "", size: 20, color: C_WHITE, bgcolor: C_BLACK, alpha: 0)
+    @x = x
+    @y = y
+    @text = text
+    @color = color
+    @bgcolor = bgcolor
+    @alpha = alpha
+    @size = size
+    @font = Font.new(@size)
+    @width = @font.getWidth(@text)
+    @sprite = Sprite.new(@x, @y, Image.new(@width, @size, @bgcolor))
+    @sprite.alpha = @alpha
+    @mouse = Sprite.new(0, 0, Image.new(1, 1, C_WHITE))
+    @mouse.alpha = 0
+  end
+
+  def draw
+    @width = @font.getWidth(@text)
+    @sprite = Sprite.new(@x, @y, Image.new(@width, @size, @bgcolor))
+    @sprite.alpha = @alpha
+    Sprite.draw([@sprite, @mouse])
+    Window.draw_font_ex(@x, @y, @text, Font.new(@size), color: @color)
+  end
+
+  def check
+    @mouse.x = Input.mouse_pos_x
+    @mouse.y = Input.mouse_pos_y
+    if Sprite.check(@sprite, @mouse)
+      yield
     end
   end
 end

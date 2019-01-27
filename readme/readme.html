@@ -51,7 +51,7 @@
                       <td>bgcolor:</td><td>ゲージの背景色を指定します。</td><td>nil(指定なし)</td>
                     </tr>
                     <tr>
-                      <td>alpha:, bgalpha:</td><td>不透明度を指定します。</td><td>100</td>
+                      <td>alpha:, bgalpha:</td><td>不透明度を指定します。([透明]0～255[不透明])</td><td>255</td>
                     </tr>
                   </tbody>
                 </table>
@@ -131,12 +131,12 @@
       <section id="setinterval section4">
         <h1 class="text-border">SetInterval</h1>
         <div class="ac-cap">
-            <input type="checkbox" id="ac-cap4-1" name="ac-cap1">
-            <label for="ac-cap4-1" class="ac-title">引数</label>
-            <div class="content"> 
-              <p>何フレームごとに処理を行うかを判断するため、秒数を入力してください。</p>
-            </div>
+          <input type="checkbox" id="ac-cap4-1" name="ac-cap1">
+          <label for="ac-cap4-1" class="ac-title">引数</label>
+          <div class="content"> 
+            <p>何フレームごとに処理を行うかを判断するため、秒数を入力してください。</p>
           </div>
+        </div>
         
           <div class="ac-cap">
             <input type="checkbox" id="ac-cap4-2" name="ac-cap2">
@@ -146,6 +146,61 @@
               <p>ブロックで、行いたい処理をブロックの中に記入します。</p>
             </div>
         </div>
+      </section>
+
+      <section id="textselect section5">
+        <h1 class="text-border">TextSelect</h1>
+        <div class="ac-cap">
+          <input type="checkbox" id="ac-cap5-1" name="ac-cap1">
+          <label for="ac-cap5-1" class="ac-title">引数</label>
+          <div class="content"> 
+            <p>
+              TextSelect.new(x:, y: text:, size:, color:, bgcolor:, alpha:)
+            </p>
+            <table border="1">
+                <thead>
+                  <tr>
+                    <th>変数</th><th>説明</th><th>デフォルト値</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>x:, y:</td><td>文字を表示させる位置を指定します。</td><td>0</td>
+                  </tr>
+                  <tr>
+                    <td>text:</td><td>表示する文字を指定します。</td><td>""</td>
+                  </tr>
+                  <tr>
+                    <td>size:</td><td>文字サイズを指定します。</td><td>20</td>
+                  </tr>
+                  <tr>
+                    <td>color:</td><td>文字色を指定します。</td><td>C_WHITE(白)</td>
+                  </tr>
+                  <tr>
+                    <td>bgcolor:</td><td>背景色を指定します。</td><td>C_BLACK(黒)</td>
+                  </tr>
+                  <tr>
+                    <td>alpha:</td><td>拝啓の不透明度を指定します。([透明]0～255[不透明])</td><td>0</td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+
+        <div class="ac-cap">
+          <input type="checkbox" id="ac-cap5-2" name="ac-cap2">
+          <label for="ac-cap5-2" class="ac-title">関数</label>
+          <div class="content">    
+            <p>
+              draw <br>
+              文字を表示させます。
+            </p>
+            <p>
+              check <br>
+              マウスが文字に重なった時の処理を書きます。
+            </p>
+          </div>
+      </div>
       </section>
   </div>
 </body>
