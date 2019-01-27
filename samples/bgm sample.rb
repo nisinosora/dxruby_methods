@@ -11,4 +11,5 @@ bgm = BGM.new("Woodgrain_line Ryo_Lion.wav")
 Window.loop do
   #playで再生します。
   bgm.play
+  Window.draw_font_ex(0, 0, "音楽が流れています", Font.default)
 end
