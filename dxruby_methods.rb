@@ -226,7 +226,7 @@ class TextSelect
     @mouse.x = Input.mouse_pos_x
     @mouse.y = Input.mouse_pos_y
     if Sprite.check(@sprite, @mouse)
-      yield
+      yield if block_given?
     end
   end
 end
