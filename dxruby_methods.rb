@@ -240,24 +240,24 @@ end
 #背景設定
 #-----------------
 class BackGround
-  attr_accessor :backimage
+  attr_accessor :set
   def initialize(scale_x, scale_y, file)
     @scale_x = scale_x
     @scale_y = scale_y
     @image = file
     @bgimg = Image.load(@image)
-    @backimage = Sprite.new(0, 0, @bgimg)
-    @backimage.scale_x = @scale_x
-    @backimage.scale_y = @scale_y
+    @set = Sprite.new(0, 0, @bgimg)
+    @set.scale_x = @scale_x
+    @set.scale_y = @scale_y
 
-    Window.width = @bgimg.width * @backimage.scale_x
-    Window.height = @bgimg.height * @backimage.scale_y
+    Window.width = @bgimg.width * @set.scale_x
+    Window.height = @bgimg.height * @set.scale_y
 
-    @backimage.x= (Window.width / 2) - (@bgimg.width / 2)
-    @backimage.y = (Window.height / 2) - (@bgimg.height / 2)
+    @set.x= (Window.width / 2) - (@bgimg.width / 2)
+    @set.y = (Window.height / 2) - (@bgimg.height / 2)
   end
 
   def draw
-    Sprite.draw(@backimage)
+    Sprite.draw(@set)
   end
 end
