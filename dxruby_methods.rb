@@ -235,3 +235,29 @@ class TextSelect
     end
   end
 end
+
+#-----------------
+#背景設定
+#-----------------
+class BackGround
+  attr_accessor :bg_bgimg
+  def initialize(scale_x, scale_y, file)
+    @scale_x = scale_x
+    @scale_y = scale_y
+    @image = file
+    @bgimg = Image.load(@image)
+    @bg_bgimg = Sprite.new(0, 0, @bgimg)
+    @bg_bgimg.scale_x = @scale_x
+    @bg_bgimg.scale_y = @scale_y
+
+    Window.width = @bgimg.width * @bg_bgimg.scale_x
+    Window.height = @bgimg.height * @bg_bgimg.scale_y
+
+    @bg_bgimg.x= (Window.width / 2) - (@bgimg.width / 2)
+    @bg_bgimg.y = (Window.height / 2) - (@bgimg.height / 2)
+  end
+
+  def draw
+    Sprite.draw(@bg_bgimg)
+  end
+end
