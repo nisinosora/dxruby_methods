@@ -155,7 +155,7 @@
           <label for="ac-cap5-1" class="ac-title">引数</label>
           <div class="content"> 
             <p>
-              TextSelect.new(x:, y: text:, size:, color:, bgcolor:, alpha:, hover:)
+              TextSelect.new(x:, y: text:, size:, color:, bgcolor:, alpha:, hover:, font_alpha:)
             </p>
             <table border="1">
                 <thead>
@@ -185,6 +185,9 @@
                   <tr>
                     <td>hover:</td><td>マウスカーソルが文字に重なった時の、文字の色を指定します。</td><td>nil</td>
                   </tr>
+                  <tr>
+                    <td>font_alpha:</td><td>文字の不透明度を指定します。([透明]0～255[不透明])</td><td>255</td>
+                  </tr>
                 </tb0ody>
               </table>
           </div>
@@ -202,8 +205,45 @@
               check <br>
               マウスが文字に重なった時の処理を書きます。
             </p>
+            <p>
+              draw_check <br>
+              上記の処理をまとめて行います。<br>
+              この処理の利用頻度は、高いと思います。
+            </p>
           </div>
       </div>
+      </section>
+
+      <section id="background section6">
+        <h1 class="text-border">BackGround</h1>
+        <div class="ac-cap">
+          <input type="checkbox" id="ac-cap6-1" name="ac-cap1">
+          <label for="ac-cap6-1" class="ac-title">引数</label>
+          <div class="content">    
+              BackGround.new(scale_x, scale_y, 画像ファイル)
+              <p>
+                scale_xの位置には、画像の横幅を指定します。１が通常サイズです。<br>
+                scale_yの位置には、画像の縦幅を指定します。１が通常サイズです。<br>
+                画像ファイルは、pngやjpgなど背景画像として利用するファイルを指定します。
+              </p>
+          </div>
+        </div>
+        <div class="ac-cap">
+          <input type="checkbox" id="ac-cap6-2" name="ac-cap2">
+          <label for="ac-cap6-2" class="ac-title">関数</label>
+          <div class="content">
+            draw <br>
+            背景画像を表示します。
+          </div>
+        </div>
+        <div class="ac-cap">
+          <input type="checkbox" id="ac-cap6-3" name="ac-cap2">
+          <label for="ac-cap6-3" class="ac-title">注意</label>
+          <div class="content">
+            複数の画像を設定する場合、最後に適応した画像に応じて画面の<br>
+            大きさが変わります。場合によっては、大きすぎたり小さすぎたりするため、ご注意ください。
+          </div>
+        </div>
       </section>
   </div>
 </body>

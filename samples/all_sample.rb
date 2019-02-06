@@ -7,7 +7,7 @@ Window.bgcolor = [100, 150, 150]
 #  ブロックがランダムに出てきます。それにマウスを重ねると消えるというゲームです。
 #  HPゲージも見てみてください。
 #--------------------
-
+bg_image = BackGround.new(0.7, 0.7, "./gahag.jpg")
 ary = []
 ary2 = []
 mouse = Sprite.new(0, 0, Image.new(1, 1, C_WHITE))
@@ -22,6 +22,7 @@ blocks = HpGage.new(hp: 0, x: 0, y: 0, height: 20, color: C_GREEN, bgcolor: [0, 
 text = TextSelect.new(text: "TEST", size: 30, x: 0, y: 100, bgcolor: C_BLUE, alpha: 255)
 
 Window.loop do
+  bg_image.draw #背景画像表示
   mouse.x = Input.mouse_pos_x
   mouse.y = Input.mouse_pos_y
 
