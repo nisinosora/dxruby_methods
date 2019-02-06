@@ -196,9 +196,9 @@ class SetInterval
 end
 
 class TextSelect
-  attr_accessor :text, :size, :x, :y, :color, :bgcolor, :alpha
+  attr_accessor :text, :size, :x, :y, :color, :bgcolor, :alpha, :font_alpha
   attr_reader :mouse
-  def initialize(x: 0, y: 0, text: "", size: 20, color: C_WHITE, bgcolor: C_BLACK, alpha: 0, hover: nil)
+  def initialize(x: 0, y: 0, text: "", size: 20, color: C_WHITE, bgcolor: C_BLACK, alpha: 0, font_alpha: 255 ,hover: nil)
     @x = x
     @y = y
     @text = text
@@ -207,6 +207,7 @@ class TextSelect
     @hover = hover
     @buckup_color = @color
     @alpha = alpha
+    @font_alpha = font_alpha
     @size = size
     @font = Font.new(@size)
     @width = @font.getWidth(@text)
@@ -222,10 +223,21 @@ class TextSelect
     @sprite = Sprite.new(@x, @y, Image.new(@width, @size, @bgcolor))
     @sprite.alpha = @alpha
     Sprite.draw([@sprite, @mouse])
-    Window.draw_font_ex(@x, @y, @text, Font.new(@size), color: @color)
+    Window.draw_font_ex(@x, @y, @text, Font.new(@size), {color: @color, alpha: @font_alpha})
   end
 
   def check
+    @mouse.x = Input.mouse_pos_x
+    @mouse.y = Input.mouse_pos_y
+    @color = @buckup_color
+    if Sprite.check(@sprite, @mouse)
+      @color = @hover unless @hover == nil
+      yield if block_given?
+    end
+  end
+
+  def draw_check
+    draw
     @mouse.x = Input.mouse_pos_x
     @mouse.y = Input.mouse_pos_y
     @color = @buckup_color
