@@ -19,7 +19,7 @@ set_interval = SetInterval.new(30)
 
 blocks = HpGage.new(hp: 0, x: 0, y: 0, height: 20, color: C_GREEN, bgcolor: [0, 200, 250])
 
-text = TextSelect.new(text: "TEST", size: 30, x: 0, y: 100, bgcolor: C_BLUE, alpha: 255)
+text = TextSelect.new(text: "TEST", size: 30, x: 0, y: 100, bgcolor: C_BLUE, bgalpha: 255)
 
 Window.loop do
   bg_image.draw #背景画像表示

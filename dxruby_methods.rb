@@ -35,9 +35,10 @@ class HpGage
     Sprite.draw(@bgcolor) unless @bgcolor == nil
     set_gage
     if @gage_value >= 1
-      @gage = Sprite.new(@x, @y, Image.new(@gage_value, @height, @color))
-      @gage.alpha = @alpha
-      Sprite.draw(@gage)
+      gage = nil
+      gage = Sprite.new(@x, @y, Image.new(@gage_value, @height, @color))
+      gage.alpha = @alpha
+      Sprite.draw(gage)
     end
   end
 
@@ -51,11 +52,11 @@ end
 #Spriteクラスでの判定をさらに簡単にしたもの
 #------------------------
 class Hit
-  def self.check(ob1, ob2)
+  def self.check(ob1, ob2, val_bool = true)
     if ob1.class == Array && ob2.class == Array
       ob1.each do |ob1|
         ob2.each do |ob2|
-          if Sprite.check(ob1, ob2)
+          if Sprite.check(ob1, ob2) == val_bool
             yield(ob1, ob2) if block_given?
           end
         end
@@ -64,7 +65,7 @@ class Hit
 
     if ob1.class == Array && ob2.class == Sprite
       ob1.each do |ob1|
-        if Sprite.check(ob1, ob2)
+        if Sprite.check(ob1, ob2) == val_bool
           yield(ob1, ob2) if block_given?
         end
       end
@@ -72,24 +73,24 @@ class Hit
 
     if ob2.class == Array && ob1.class == Sprite
       ob2.each do |ob2|
-        if Sprite.check(ob1, ob1)
+        if Sprite.check(ob1, ob1) == val_bool
           yield(ob2, ob1) if block_given?
         end
       end
     end
 
     if ob1.class == Sprite && ob2.class == Sprite
-      if Sprite.check(ob1, ob2)
+      if Sprite.check(ob1, ob2) == val_bool
         yield(ob1, ob2) if block_given?
       end
     end
   end
 
-  def self.check_index(ob1, ob2)
+  def self.check_index(ob1, ob2, val_bool = true)
     if ob1.class == Array && ob2.class == Array
       ob1.each_with_index do |ob1, index|
         ob2.each_with_index do |ob2, index2|
-          if Sprite.check(ob1, ob2)
+          if Sprite.check(ob1, ob2) == val_bool
             yield(index, index2) if block_given?
           end
         end
@@ -98,7 +99,7 @@ class Hit
 
     if ob1.class == Array && ob2.class == Sprite
       ob1.each_with_index do |ob1, index|
-        if Sprite.check(ob1, ob2)
+        if Sprite.check(ob1, ob2) == val_bool
           yield(index) if block_given?
         end
       end
@@ -106,24 +107,24 @@ class Hit
 
     if ob2.class == Array && ob1.class == Sprite
       ob2.each_with_index do |ob2, index|
-        if Sprite.check(ob1, ob2)
+        if Sprite.check(ob1, ob2) == val_bool
           yield(index) if block_given?
         end
       end
     end
 
     if ob1.class == Sprite && ob2.class == Sprite
-      if Sprite.check(ob1, ob2)
+      if Sprite.check(ob1, ob2) == val_bool
         yield if block_given?
       end
     end
   end
 
-  def self.check_with_index(ob1, ob2)
+  def self.check_with_index(ob1, ob2, val_bool = true)
     if ob1.class == Array && ob2.class == Array
       ob1.each_with_index do |ob1, index|
         ob2.each_with_index do |ob2, index2|
-          if Sprite.check(ob1, ob2)
+          if Sprite.check(ob1, ob2) == val_bool
             yield(index, index2, ob1, ob2) if block_given?
           end
         end
@@ -132,7 +133,7 @@ class Hit
 
     if ob1.class == Array && ob2.class == Sprite
       ob1.each_with_index do |ob1, index|
-        if Sprite.check(ob1, ob2)
+        if Sprite.check(ob1, ob2) == val_bool
           yield(index, ob1) if block_given?
         end
       end
@@ -140,14 +141,14 @@ class Hit
 
     if ob2.class == Array && ob1.class == Sprite
       ob2.each_with_index do |ob2, index|
-        if Sprite.check(ob1, ob2)
+        if Sprite.check(ob1, ob2) == val_bool
           yield(index, ob2) if block_given?
         end
       end
     end
 
     if ob1.class == Sprite && ob2.class == Sprite
-      if Sprite.check(ob1, ob2)
+      if Sprite.check(ob1, ob2) == val_bool
         yield if block_given?
       end
     end
@@ -159,6 +160,7 @@ end
 #-----------------
 class BGM
   attr_accessor :bgm
+  alias set bgm
   def initialize(file)
     @bgm = Sound.new(file)
     @bgm.loop_count = -1
@@ -196,9 +198,10 @@ class SetInterval
 end
 
 class TextSelect
-  attr_accessor :text, :size, :x, :y, :color, :bgcolor, :alpha, :font_alpha
+  attr_accessor :text, :size, :x, :y, :color, :bgcolor, :bgalpha, :font_alpha
   attr_reader :mouse
-  def initialize(x: 0, y: 0, text: "", size: 20, color: C_WHITE, bgcolor: C_BLACK, alpha: 0, font_alpha: 255 ,hover: nil)
+  def initialize(x: 0, y: 0, text: "sample", size: 20, color: C_WHITE, 
+                bgcolor: C_BLACK, bgalpha: 0, font_alpha: 255 ,hover: nil)
     @x = x
     @y = y
     @text = text
@@ -206,13 +209,13 @@ class TextSelect
     @bgcolor = bgcolor
     @hover = hover
     @buckup_color = @color
-    @alpha = alpha
+    @bgalpha = bgalpha
     @font_alpha = font_alpha
     @size = size
     @font = Font.new(@size)
     @width = @font.getWidth(@text)
     @sprite = Sprite.new(@x, @y, Image.new(@width, @size, @bgcolor))
-    @sprite.alpha = @alpha
+    @sprite.alpha = @bgalpha
     @mouse = Sprite.new(0, 0, Image.new(1, 1, C_WHITE))
     @mouse.alpha = 0
   end
@@ -221,30 +224,34 @@ class TextSelect
     @font = Font.new(@size)
     @width = @font.getWidth(@text)
     @sprite = Sprite.new(@x, @y, Image.new(@width, @size, @bgcolor))
-    @sprite.alpha = @alpha
+    @sprite.alpha = @bgalpha
     Sprite.draw([@sprite, @mouse])
     Window.draw_font_ex(@x, @y, @text, Font.new(@size), {color: @color, alpha: @font_alpha})
   end
 
-  def check
-    @mouse.x = Input.mouse_pos_x
-    @mouse.y = Input.mouse_pos_y
+  def check(val_bool = true)
+    mouse
     @color = @buckup_color
-    if Sprite.check(@sprite, @mouse)
+    if Sprite.check(@sprite, @mouse) == val_bool
       @color = @hover unless @hover == nil
       yield if block_given?
     end
   end
 
-  def draw_check
+  def draw_check(val_bool = true)
+    mouse
     draw
-    @mouse.x = Input.mouse_pos_x
-    @mouse.y = Input.mouse_pos_y
     @color = @buckup_color
-    if Sprite.check(@sprite, @mouse)
+    if Sprite.check(@sprite, @mouse)  == val_bool
       @color = @hover unless @hover == nil
       yield if block_given?
     end
+  end
+
+  private
+  def mouse
+    @mouse.x = Input.mouse_pos_x
+    @mouse.y = Input.mouse_pos_y
   end
 end
 
@@ -271,5 +278,23 @@ class BackGround
 
   def draw
     Sprite.draw(@set)
+  end
+end
+
+
+#-----------------
+#ブール値を設定するためのもの
+#-----------------
+class Boolean
+  def initialize(val = true)
+    @bool = val
+  end
+
+  def chenge
+    if @bool
+      @bool = false
+    else
+      @bool = true
+    end
   end
 end
