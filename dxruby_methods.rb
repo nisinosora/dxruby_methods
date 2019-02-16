@@ -286,15 +286,33 @@ end
 #ブール値を設定するためのもの
 #-----------------
 class Boolean
+  attr_reader :bool
+  alias val bool
   def initialize(val = true)
-    @bool = val
-  end
-
-  def chenge
-    if @bool
-      @bool = false
+    if val == true || val == false
+      @bool = val
     else
       @bool = true
     end
+  end
+
+  def chenge(val = nil)
+    if val == nil
+      if @bool
+        @bool = false
+      else
+        @bool = true
+      end
+    else
+      if val == true || val == false
+        @bool = val
+      else
+        chenge
+      end
+    end
+  end
+
+  def set(val = nil)
+    chenge(val)
   end
 end
