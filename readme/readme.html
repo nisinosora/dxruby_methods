@@ -21,7 +21,7 @@
               <input type="checkbox" id="ac-cap1-1" name="ac-cap1">
               <label for="ac-cap1-1" class="ac-title">引数</label>
               <div class="content">
-                HpGage.new(x:, y:, width:, height:, hp:, maxhp:, color:, bgcolor:, alpha:, bgalpha:)<br>
+                HpGage.new(x:, y:, width:, height:, hp:, maxhp:, color:, bgcolor:, alpha:, bgalpha:, direction:)<br>
                 <table border="1">
                   <thead>
                     <tr>
@@ -53,6 +53,17 @@
                     <tr>
                       <td>alpha:, bgalpha:</td><td>不透明度を指定します。([透明]0～255[不透明])</td><td>255</td>
                     </tr>
+                    <tr>
+                      <td>direction:</td>
+                      <td>
+                        ゲージの動く向きを指定します。("normal" か "reverse") <br>
+                        "normal"は、通常でhpが少ないほど、左側に減っていきます。<br>
+                        "reverse"は、hpが少ないほど、右側に減っていきます。<br>
+                        具体的な動きは、サンプルをご確認ください。
+                      </td>
+                      <td>nil <br>
+                      表示する際に指定がなければ、"normal"として表示します。</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -62,8 +73,12 @@
               <input type="checkbox" id="ac-cap1-2" name="ac-cap2">
               <label for="ac-cap1-2" class="ac-title">関数</label>
               <div class="content">    
-                <p>draw</p>
-                ゲージを表示します。
+                <p>draw(direction)</p>
+                ゲージを表示します。<br>
+                directionを指定すると、ゲージの動く向きが変わります。("normal" か "reverse") <br>
+                "normal"は、通常でhpが少ないほど、左側に減っていきます。<br>
+                "reverse"は、hpが少ないほど、右側に減っていきます。<br>
+                具体的な動きは、サンプルをご確認ください。
               </div>
           </div>
         </div>

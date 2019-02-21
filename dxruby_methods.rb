@@ -5,7 +5,8 @@ require 'dxruby'
 #-------------------------
 class HpGage
   attr_accessor :x, :y, :height, :hp, :maxhp,:color, :bgcolor, :alpha, :bgalpha
-  def initialize(x: 0, y: 0, height: 10, width: 100, hp: 100, maxhp: 100, color: C_WHITE, bgcolor: nil, alpha: 255, bgalpha: 255)
+  def initialize(x: 0, y: 0, height: 10, width: 100, hp: 100, maxhp: 100, color: C_WHITE, 
+    bgcolor: nil, alpha: 255, bgalpha: 255, direction: nil)
     #----------------
     #x,y : 座標
     #height, width: 縦の長さと最大幅
@@ -22,6 +23,7 @@ class HpGage
     @color = color
     @alpha = alpha
     @bgalpha = bgalpha
+    @direction = direction
     unless bgcolor == nil
       @bgcolor = Sprite.new(@x, @y, Image.new(@width, @height, bgcolor))
       @bgcolor.alpha = @bgalpha
@@ -29,14 +31,27 @@ class HpGage
     set_gage
   end
 
-  def draw
+  def draw(direction = nil)
+    if direction == nil
+      if @direction == "normal" || @direction == "reverse"
+        direction = @direction
+      elsif @direction == nil
+        direction = "normal"
+      end
+    end
+
     @hp = @maxhp if @hp >= @maxhp
     @hp = 0 if @hp < 0
     Sprite.draw(@bgcolor) unless @bgcolor == nil
     set_gage
     if @gage_value >= 1
-      gage = nil
-      gage = Sprite.new(@x, @y, Image.new(@gage_value, @height, @color))
+      case direction
+      when "normal"
+        gage = Sprite.new(@x, @y, Image.new(@gage_value, @height, @color))
+      when "reverse"
+        x = (@x - @gage_value) + @width
+        gage = Sprite.new(x, @y, Image.new(@gage_value, @height, @color))
+      end
       gage.alpha = @alpha
       Sprite.draw(gage)
     end
