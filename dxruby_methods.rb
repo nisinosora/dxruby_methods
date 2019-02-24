@@ -195,6 +195,9 @@ class BGM
   end
 end
 
+#-----------------
+#指定したフレーム数ごとに処理を行う。
+#-----------------
 class SetInterval
   def initialize(sec)
     @time = sec 
@@ -212,6 +215,9 @@ class SetInterval
   end
 end
 
+#-----------------
+#マウスカーソルが文字に重なった時の処理
+#-----------------
 class TextSelect
   attr_accessor :text, :size, :x, :y, :color, :bgcolor, :bgalpha, :font_alpha
   attr_reader :mouse
@@ -295,7 +301,6 @@ class BackGround
     Sprite.draw(@set)
   end
 end
-
 
 #-----------------
 #ブール値を設定するためのもの
