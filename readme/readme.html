@@ -59,10 +59,14 @@
                         ゲージの動く向きを指定します。("normal" か "reverse") <br>
                         "normal"は、通常でhpが少ないほど、左側に減っていきます。<br>
                         "reverse"は、hpが少ないほど、右側に減っていきます。<br>
+                        "both"は、ゲージの両端から変動します。<br>
                         具体的な動きは、サンプルをご確認ください。
                       </td>
-                      <td>nil <br>
-                      表示する際に指定がなければ、"normal"として表示します。</td>
+                      <td>
+                        nil <br>
+                        表示する際に指定がなければ、"normal"として表示します。<br>
+                        directionで先に指定されている場合は、そちらが優先されます。
+                    </td>
                     </tr>
                   </tbody>
                 </table>
@@ -75,9 +79,10 @@
               <div class="content">    
                 <p>draw(direction)</p>
                 ゲージを表示します。<br>
-                directionを指定すると、ゲージの動く向きが変わります。("normal" か "reverse") <br>
+                directionを指定すると、ゲージの動く向きが変わります。 <br>
                 "normal"は、通常でhpが少ないほど、左側に減っていきます。<br>
                 "reverse"は、hpが少ないほど、右側に減っていきます。<br>
+                "both"は、ゲージの両端から変動します。<br>
                 具体的な動きは、サンプルをご確認ください。
               </div>
           </div>

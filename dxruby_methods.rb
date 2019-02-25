@@ -33,9 +33,10 @@ class HpGage
 
   def draw(direction = nil)
     if direction == nil
-      if @direction == "normal" || @direction == "reverse"
+      case @direction
+      when "normal", "reverse", "both"
         direction = @direction
-      elsif @direction == nil
+      else
         direction = "normal"
       end
     end
@@ -45,12 +46,16 @@ class HpGage
     Sprite.draw(@bgcolor) unless @bgcolor == nil
     set_gage
     if @gage_value >= 1
+      image = Image.new(@gage_value, @height, @color)
       case direction
       when "normal"
-        gage = Sprite.new(@x, @y, Image.new(@gage_value, @height, @color))
+        gage = Sprite.new(@x, @y, image)
       when "reverse"
         x = (@x - @gage_value) + @width
-        gage = Sprite.new(x, @y, Image.new(@gage_value, @height, @color))
+        gage = Sprite.new(x, @y, image)
+      when "both"
+        x = (@x - (@gage_value / 2)) + (@width / 2)
+        gage = Sprite.new(x, @y, image)
       end
       gage.alpha = @alpha
       Sprite.draw(gage)
