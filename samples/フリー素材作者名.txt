@@ -1,7 +1,0 @@
-gahag.jpg
-#=> GAHAGさん  
-#=> http://gahag.net/
-
-Woodgrain_line Ryo_Lion.wav 
-#=> DOVA-SYNDROM Ryo Lionさん
-#=> https://dova-s.jp/_contents/author/profile123.html

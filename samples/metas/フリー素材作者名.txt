@@ -1,0 +1,24 @@
+﻿gahag.jpg
+#=> GAHAGさん  
+#=> http://gahag.net/
+
+Woodgrain_line Ryo_Lion.wav 
+#=> DOVA-SYNDROM Ryo Lionさん
+#=> https://dova-s.jp/_contents/author/profile123.html
+
+Gooddess.wav
+#=> DOVA-SYNDROM 作田京輔さん
+#=> https://dova-s.jp/_contents/author/profile164.html
+
+main_6.jpg
+main_98.jpg
+#=> 星宝転生ジュエルセイバー
+#=> http://www.jewel-s.jp/
+
+栄光のファンファーレ.wav
+#=> DOVA-SYNDROM t.tamさん
+#=> https://dova-s.jp/_contents/author/profile154.html
+
+nc148325.wav
+#=> peritune
+#=> https://peritune.com/

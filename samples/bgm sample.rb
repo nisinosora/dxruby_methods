@@ -5,7 +5,7 @@ require_relative '../dxruby_methods'
 #--------------------
 
 #読み込む音楽ファイルを引数に入力
-bgm = BGM.new("Woodgrain_line Ryo_Lion.wav")
+bgm = BGM.new("./metas/Woodgrain_line Ryo_Lion.wav")
 
 #自動で音楽が流れるためご注意ください。
 Window.loop do

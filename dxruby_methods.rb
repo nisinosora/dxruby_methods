@@ -313,7 +313,7 @@ end
 class Boolean
   attr_reader :bool
   alias val bool
-  def initialize(val = true)
+  def initialize(val = nil)
     if val == true || val == false
       @bool = val
     else
