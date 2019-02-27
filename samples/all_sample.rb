@@ -88,7 +88,7 @@ Window.loop do
     when 0..5, 8..9
       damage = enemy[:attack]
       damage -= my[:defense]
-      damage = 10 if damage < 1
+      damage = 1 if damage < 1
       hp[:my].hp -= damage
     when 10
       enemy[:defense] += 1
