@@ -38,4 +38,6 @@ Window.loop do
     hp["reverse"].hp -= 1
     hp["both"].hp -= 1
   end
+  
+  Window.draw_font_ex(150, 300, "上下(↑↓)キーでHPが変わります。", Font.default)
 end
