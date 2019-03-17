@@ -341,3 +341,62 @@ class Boolean
     chenge(val)
   end
 end
+
+#-----------------
+#テキストボックス
+#-----------------
+class TextBox
+  @@text = ""
+  @@text_save = ""
+  @@output = ""
+  @@index = 0
+  def initialize(x: 0,y: 0, width: 500, height: 100, bgcolor: C_WHITE, font: 25)
+    @x = x
+    @y = y
+    @width = width
+    @height = height
+    @bgcolor = bgcolor
+    @font = Font.new(font)
+    @font_val = font
+    @interval = SetInterval.new(5)
+    @back = Sprite.new(@x, @y, Image.new(@width, @height, @bgcolor))
+  end
+
+  def set(text = "")
+    @@text = text
+    @size = @@text.size - 1
+    @t_width = @font.getWidth(@@text)
+    if (@@text_save != @@text) || (@@text_save == "")
+      @@text_save = @@text
+      @@index = 0
+      check
+    end
+    count
+  end
+
+  def show(color: C_WHITE)
+    Sprite.draw(@back)
+    Window.draw_font(@x, @y, "#{@@output}", @font, color: color)
+  end
+
+  private
+  def check
+    moji = ""
+    if @width < @t_width
+      @@text.each_char.with_index do |char, index|
+        moji += char
+        if @width < @font.getWidth(moji)
+          @@text[index] = "\n#{@@text[index]}"
+          moji = char
+        end
+      end
+    end
+  end
+
+  def count
+    @@output = @@text[0..@@index]
+    @interval.loop do
+      @@index += 1 if @@index < @size
+    end
+  end
+end
