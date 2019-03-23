@@ -345,12 +345,15 @@ end
 #-----------------
 #テキストボックス
 #-----------------
+key = :key
+mouse = :mouse
+both = :both
 class TextBox
   @@text = ""
   @@text_save = ""
   @@output = ""
   @@index = 0
-  def initialize(x: 0,y: 0, width: 500, height: 100, bgcolor: C_WHITE, font: 25)
+  def initialize(x: 0,y: 0, width: 500, height: 100, bgcolor: C_WHITE, font: 25, interval: 5, controll: :both)
     @x = x
     @y = y
     @width = width
@@ -358,11 +361,60 @@ class TextBox
     @bgcolor = bgcolor
     @font = Font.new(font)
     @font_val = font
-    @interval = SetInterval.new(5)
+    @interval = SetInterval.new(interval)
     @back = Sprite.new(@x, @y, Image.new(@width, @height, @bgcolor))
+    @text_ary = []
+    @text_ary_index = 0
+    @ary_set_check = false
+    @controll = controll
   end
 
-  def set(text = "")
+  def set(ary)
+    @text_ary = ary
+    if @text_ary.class != Array
+      p @text_ary.class
+      raise "配列を入れてください。please in array"
+    end
+
+    @text_ary.delete_if{ |val| val.class != String}
+
+    @text_ary_size = @text_ary.size - 1
+    if @text_ary_size < 1
+      @text_ary = [""]
+      @text_ary_size = 1
+    end
+    set_text(ary[@text_ary_index])
+    @ary_set_check = true
+  end
+
+  def show(color: C_WHITE)
+    Sprite.draw(@back)
+    Window.draw_font(@x, @y, "#{@@output}", @font, color: color)
+    if @ary_set_check
+      set_text(@text_ary[@text_ary_index])
+      case @controll
+      when :key
+        if Input.key_push?(K_RETURN)
+          @text_ary_index += 1
+        end
+      when :mouse
+        if Input.mouse_push?(M_LBUTTON)
+          @text_ary_index += 1
+        end
+      when :both
+        if Input.key_push?(K_RETURN) || Input.mouse_push?(M_LBUTTON)
+          @text_ary_index += 1
+        end
+      end
+      if @text_ary_index > @text_ary_size
+        @text_ary_index = 0
+      end
+      yield(@text_ary[@text_ary_index], @text_ary_index) if block_given?
+    end
+  end
+
+  private
+  def set_text(text = "")
     @@text = text
     @size = @@text.size - 1
     @t_width = @font.getWidth(@@text)
@@ -374,12 +426,6 @@ class TextBox
     count
   end
 
-  def show(color: C_WHITE)
-    Sprite.draw(@back)
-    Window.draw_font(@x, @y, "#{@@output}", @font, color: color)
-  end
-
-  private
   def check
     moji = ""
     if @width < @t_width

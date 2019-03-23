@@ -306,7 +306,7 @@
           <label for="ac-cap8-1" class="ac-title">引数</label>
           <div class="content">
             <p>
-              TextBox.new(x:, y:, width:, height:, bgcolor:, font:)
+              TextBox.new(x:, y:, width:, height:, bgcolor:, font:, interval:, controll:)
             </p>
             <p>
               <table border="1">
@@ -343,6 +343,21 @@
                     <td>フォントのサイズを指定します</td>
                     <td>25</td>
                   </tr>
+                  <tr>
+                    <td>interval:</td>
+                    <td>文字を表示する速度を指定します。</td>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <td>:controll:</td>
+                    <td>
+                      文字を次々と表示する際に、どのコントロールを行うか指定します。<br>
+                      :key にすると、キーボードのEnterキーを押したときに次の文字を表示します。<br>
+                      :mouse にすると、マウスの左クリックを押したときに次の文字を表示します。　<br>
+                      :both: にすると上記のどちらかを押したときに次の文字を表示します。
+                    </td>
+                    <td>:both</td>
+                  </tr>
                 </tbody>
               </table>
             </p>
@@ -353,24 +368,23 @@
           <label for="ac-cap8-2" class="ac-title">関数</label>
           <div class="content">
            <p>
-             show <br>
-             setで設定した文字を表示します。
+             show(color: C_WHITE) <br>
+             color: は、表示するときの文字の色を指定します。<br>
+             ブロックを利用することもできます。<br>
+             デフォルトは、C_WHITE(白)です。
+             <br>
+             変数.show() do |text, index| <br>
+             　puts text #現在表示されている文字を返します。<br>
+             　puts index #現在の配列にあたる要素番号を返します。<br>
+             end
             </p>
             <p>
-              set <br>
-              表示する文字を設定します。
+              set() <br>
+              引数には、配列を入れてください。配列に入っている文字列を探し出します。<br>
+              そこにある文字を順に設定していきます。
             </p>
           </div>
         </div>
-        <div class="ac-cap">
-            <input type="checkbox" id="ac-cap8-3" name="ac-cap3">
-            <label for="ac-cap8-3" class="ac-title">注意</label>
-            <div class="content">
-              setで上手く表示されないことがあります。<br>
-              その場合、ifの中にsetを入れてる可能性があるので、ifの中にはなるべく入れないようにしてください。<br>
-              仕様により、少し面倒なことになっていますが、使用される際はご了承ください。
-            </div>
-          </div>
       </section>
   </div>
 </body>
