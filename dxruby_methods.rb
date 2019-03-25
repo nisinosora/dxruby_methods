@@ -387,6 +387,10 @@ class TextBox
     @ary_set_check = true
   end
 
+  def finish(&proc)
+    @proc = proc
+  end
+
   def show(color: C_WHITE)
     Sprite.draw(@back)
     Window.draw_font(@x, @y, "#{@@output}", @font, color: color)
@@ -406,9 +410,15 @@ class TextBox
           @text_ary_index += 1
         end
       end
+
       if @text_ary_index > @text_ary_size
         @text_ary_index = 0
+        begin
+          @proc.call
+        rescue
+        end
       end
+      
       yield(@text_ary[@text_ary_index], @text_ary_index) if block_given?
     end
   end
@@ -420,6 +430,7 @@ class TextBox
     @t_width = @font.getWidth(@@text)
     if (@@text_save != @@text) || (@@text_save == "")
       @@text_save = @@text
+      @@text.gsub!(/(\r\n?|\n)/,"")
       @@index = 0
       check
     end
