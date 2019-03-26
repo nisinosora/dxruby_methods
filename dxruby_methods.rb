@@ -353,6 +353,7 @@ class TextBox
   @@text_save = ""
   @@output = ""
   @@index = 0
+  @@key_type = true #テキスト切り替えのキーの有効と無効の切り替え
   def initialize(x: 0,y: 0, width: 500, height: 100, bgcolor: C_WHITE, font: 25, interval: 5, controll: :both)
     @x = x
     @y = y
@@ -367,6 +368,10 @@ class TextBox
     @text_ary_index = 0
     @ary_set_check = false
     @controll = controll
+
+    #メニュー
+    @menu_key = K_ESCAPE
+    @menu_type = false
   end
 
   def set(ary)
@@ -391,32 +396,56 @@ class TextBox
     @proc = proc
   end
 
+  def menu_set(key:K_ESCAPE, &menu_sheen)
+    @menu_key = key
+    @menu_sheen = menu_sheen
+  end
+
+  def menu_show
+    if Input.key_push?(@menu_key)
+      if @menu_type == true
+        @menu_type = false
+      else
+        @menu_type = true
+      end
+    end
+
+    if @menu_sheen != nil && @menu_type
+      @@key_type = false
+      @menu_sheen.call unless @menu_sheen == nil
+    end
+  end
+
+  def menu_close
+    @@key_type = true
+    @menu_type = false
+  end
+
   def show(color: C_WHITE)
     Sprite.draw(@back)
     Window.draw_font(@x, @y, "#{@@output}", @font, color: color)
     if @ary_set_check
       set_text(@text_ary[@text_ary_index])
-      case @controll
-      when :key
-        if Input.key_push?(K_RETURN)
-          @text_ary_index += 1
-        end
-      when :mouse
-        if Input.mouse_push?(M_LBUTTON)
-          @text_ary_index += 1
-        end
-      when :both
-        if Input.key_push?(K_RETURN) || Input.mouse_push?(M_LBUTTON)
-          @text_ary_index += 1
+      if @@key_type == true
+        case @controll
+        when :key
+          if Input.key_push?(K_RETURN)
+            @text_ary_index += 1
+          end
+        when :mouse
+          if Input.mouse_push?(M_LBUTTON)
+            @text_ary_index += 1
+          end
+        when :both
+          if Input.key_push?(K_RETURN) || Input.mouse_push?(M_LBUTTON)
+            @text_ary_index += 1
+          end
         end
       end
 
       if @text_ary_index > @text_ary_size
         @text_ary_index = 0
-        begin
-          @proc.call
-        rescue
-        end
+        @proc.call unless @proc == nil
       end
       
       yield(@text_ary[@text_ary_index], @text_ary_index) if block_given?

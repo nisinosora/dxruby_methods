@@ -18,6 +18,20 @@ texts = [
 ]
 text.set(texts)
 
+#メニュー用
+back = Sprite.new(0, 0, Image.new(Window.width, Window.height, C_BLUE))
+back.alpha = 150
+close = TextSelect.new(x: 100, y: 100, text: "閉じる", size: 20, hover: C_GREEN)
+
+text.menu_set(key: K_ESCAPE) do
+  Sprite.draw(back)
+  close.draw_check do 
+    if Input.mouse_push?(M_LBUTTON)
+      text.menu_close
+    end
+  end
+end
+
 #最後の表示になったら、終了という文字を出力し、繰り返す
 # text.finish do
 #   puts "終了"
@@ -25,4 +39,5 @@ text.set(texts)
 
 Window.loop do
   text.show
+  text.menu_show
 end
