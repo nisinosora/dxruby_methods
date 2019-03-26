@@ -430,7 +430,6 @@ class TextBox
     @t_width = @font.getWidth(@@text)
     if (@@text_save != @@text) || (@@text_save == "")
       @@text_save = @@text
-      @@text.gsub!(/(\r\n?|\n)/,"")
       @@index = 0
       check
     end
@@ -439,7 +438,7 @@ class TextBox
 
   def check
     moji = ""
-    if @width < @t_width
+    if (@width < @t_width) && @@text.include?("\n") == false
       @@text.each_char.with_index do |char, index|
         moji += char
         if @width < @font.getWidth(moji)
