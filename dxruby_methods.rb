@@ -405,8 +405,10 @@ class TextBox
     if Input.key_push?(@menu_key)
       if @menu_type == true
         @menu_type = false
+        @@key_type = true
       else
         @menu_type = true
+        @@key_type = false
       end
     end
 

@@ -19,8 +19,8 @@ texts = [
 text.set(texts)
 
 #メニュー用
-back = Sprite.new(0, 0, Image.new(Window.width, Window.height, C_BLUE))
-back.alpha = 150
+back = Sprite.new(0, 0, Image.new(Window.width, Window.height, C_BLUE)) #メニューを開く際に、青い背景を表示する
+back.alpha = 150 #背景の透過度を変更する
 close = TextSelect.new(x: 100, y: 100, text: "閉じる", size: 20, hover: C_GREEN)
 
 text.menu_set(key: K_ESCAPE) do
@@ -38,6 +38,7 @@ end
 # end
 
 Window.loop do
+  Window.draw_font_ex(0, 0, "ESCキーを押すとメニューが開きます。", Font.default)
   text.show
   text.menu_show
 end
