@@ -22,12 +22,26 @@ text.set(texts)
 back = Sprite.new(0, 0, Image.new(Window.width, Window.height, C_BLUE)) #メニューを開く際に、青い背景を表示する
 back.alpha = 150 #背景の透過度を変更する
 close = TextSelect.new(x: 100, y: 100, text: "閉じる", size: 20, hover: C_GREEN)
+save = TextSelect.new(x: 100, y: 150, text: "セーブ", size: 20, hover: C_GREEN)
+load = TextSelect.new(x: 200, y: 150, text: "ロード", size: 20, hover: C_GREEN)
 
 text.menu_set(key: K_ESCAPE) do
   Sprite.draw(back)
   close.draw_check do 
     if Input.mouse_push?(M_LBUTTON)
       text.menu_close
+    end
+  end
+
+  save.draw_check do
+    if Input.mouse_push?(M_LBUTTON)
+      text.save
+    end
+  end
+
+  load.draw_check do
+    if Input.mouse_push?(M_LBUTTON)
+      text.load
     end
   end
 end

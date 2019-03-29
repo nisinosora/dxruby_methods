@@ -372,6 +372,9 @@ class TextBox
     #メニュー
     @menu_key = K_ESCAPE
     @menu_type = false
+
+    #セーブ
+    @index_save = 0
   end
 
   def set(ary)
@@ -390,6 +393,16 @@ class TextBox
     end
     set_text(ary[@text_ary_index])
     @ary_set_check = true
+  end
+
+  def save
+    @index_save = @text_ary_index
+    return @index_save
+  end
+
+  def load 
+    @text_ary_index = @index_save
+    return @text_ary_index
   end
 
   def finish(&proc)
