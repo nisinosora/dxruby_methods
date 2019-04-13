@@ -369,6 +369,7 @@ class TextBox
     @ary_set_check = false
     @controll = controll
 
+    @vanished = false
     #メニュー
     @menu_key = K_ESCAPE
     @menu_type = false
@@ -378,125 +379,150 @@ class TextBox
   end
 
   def set(ary)
-    @text_ary = ary
-    if @text_ary.class != Array
-      p @text_ary.class
-      raise "配列を入れてください。please in array"
-    end
+    unless @vanished
+      @text_ary = ary
+      if @text_ary.class != Array
+        raise "配列を入れてください。please in array"
+      end
 
-    @text_ary.delete_if{ |val| val.class != String}
+      @text_ary.delete_if{ |val| val.class != String}
 
-    @text_ary_size = @text_ary.size - 1
-    if @text_ary_size < 1
-      @text_ary = [""]
-      @text_ary_size = 1
+      @text_ary_size = @text_ary.size - 1
+      if @text_ary_size < 1
+        @text_ary = [""]
+        @text_ary_size = 1
+      end
+      set_text(ary[@text_ary_index])
+      @ary_set_check = true
     end
-    set_text(ary[@text_ary_index])
-    @ary_set_check = true
   end
 
   def save
-    @index_save = @text_ary_index
-    return @index_save
+    unless @vanished
+      @index_save = @text_ary_index
+      return @index_save
+    end
   end
 
-  def load 
-    @text_ary_index = @index_save
-    return @text_ary_index
+  def load
+    unless @vanished
+      @text_ary_index = @index_save
+      return @text_ary_index
+    end
   end
 
   def finish(&proc)
-    @proc = proc
+    unless @vanished
+      @proc = proc
+    end
   end
 
   def menu_set(key:K_ESCAPE, &menu_sheen)
-    @menu_key = key
-    @menu_sheen = menu_sheen
+    unless @vanished
+      @menu_key = key
+      @menu_sheen = menu_sheen
+    end
   end
 
   def menu_show
-    if Input.key_push?(@menu_key)
-      if @menu_type == true
-        @menu_type = false
-        @@key_type = true
-      else
-        @menu_type = true
-        @@key_type = false
+    unless @vanished
+      if Input.key_push?(@menu_key)
+        if @menu_type == true
+          @menu_type = false
+          @@key_type = true
+        else
+          @menu_type = true
+          @@key_type = false
+        end
       end
-    end
 
-    if @menu_sheen != nil && @menu_type
-      @@key_type = false
-      @menu_sheen.call unless @menu_sheen == nil
+      if @menu_sheen != nil && @menu_type
+        @@key_type = false
+        @menu_sheen.call unless @menu_sheen == nil
+      end
     end
   end
 
   def menu_close
-    @@key_type = true
-    @menu_type = false
+    unless @vanished
+      @@key_type = true
+      @menu_type = false
+    end
   end
 
   def show(color: C_WHITE)
-    Sprite.draw(@back)
-    Window.draw_font(@x, @y, "#{@@output}", @font, color: color)
-    if @ary_set_check
-      set_text(@text_ary[@text_ary_index])
-      if @@key_type == true
-        case @controll
-        when :key
-          if Input.key_push?(K_RETURN)
-            @text_ary_index += 1
-          end
-        when :mouse
-          if Input.mouse_push?(M_LBUTTON)
-            @text_ary_index += 1
-          end
-        when :both
-          if Input.key_push?(K_RETURN) || Input.mouse_push?(M_LBUTTON)
-            @text_ary_index += 1
+    unless @vanished
+      Sprite.draw(@back)
+      Window.draw_font(@x, @y, "#{@@output}", @font, color: color)
+      if @ary_set_check
+        set_text(@text_ary[@text_ary_index])
+        if @@key_type == true
+          case @controll
+          when :key
+            if Input.key_push?(K_RETURN)
+              @text_ary_index += 1
+            end
+          when :mouse
+            if Input.mouse_push?(M_LBUTTON)
+              @text_ary_index += 1
+            end
+          when :both
+            if Input.key_push?(K_RETURN) || Input.mouse_push?(M_LBUTTON)
+              @text_ary_index += 1
+            end
           end
         end
-      end
 
-      if @text_ary_index > @text_ary_size
-        @text_ary_index = 0
-        @proc.call unless @proc == nil
+        if @text_ary_index > @text_ary_size
+          @text_ary_index = 0
+          @proc.call unless @proc == nil
+        end
+        
+        yield(@text_ary[@text_ary_index], @text_ary_index) if block_given?
       end
-      
-      yield(@text_ary[@text_ary_index], @text_ary_index) if block_given?
     end
+  end
+
+  def despose
+    @back.vasnish
   end
 
   private
   def set_text(text = "")
-    @@text = text
-    @size = @@text.size - 1
-    @t_width = @font.getWidth(@@text)
-    if (@@text_save != @@text) || (@@text_save == "")
-      @@text_save = @@text
-      @@index = 0
-      check
+    unless @vanished
+      @@text = text
+      @size = @@text.size - 1
+      @t_width = @font.getWidth(@@text)
+      if (@@text_save != @@text) || (@@text_save == "")
+        @@text_save = @@text
+        @@index = 0
+        check
+      end
+      count
     end
-    count
   end
 
   def check
-    moji = ""
-    if (@width < @t_width) && @@text.include?("\n") == false
-      @@text.each_char.with_index do |char, index|
-        moji += char
-        if @width < @font.getWidth(moji)
-          @@text[index] = "\n#{@@text[index]}"
-          moji = char
+    unless @vanished
+      moji = ""
+      if (@width < @t_width) && @@text.include?("\n") == false
+        @@text.each_char.with_index do |char, index|
+          moji += char
+          if @width < @font.getWidth(moji)
+            @@text[index] = "\n#{@@text[index]}"
+            moji = char
+          end
         end
       end
     end
   end
 
   def count
-    @@output = @@text[0..@@index]
-    @interval.loop do
-      @@index += 1 if @@index < @size
+    unless @vanished
+      @@output = @@text[0..@@index]
+      @interval.loop do
+        @@index += 1 if @@index < @size
+      end
     end
   end
 end
