@@ -224,7 +224,7 @@ end
 #マウスカーソルが文字に重なった時の処理
 #-----------------
 class TextSelect
-  attr_accessor :text, :size, :x, :y, :color, :bgcolor, :bgalpha, :font_alpha
+  attr_accessor :text, :size, :x, :y, :color, :bgcolor, :bgalpha, :font_alpha, :hover
   attr_reader :mouse
   def initialize(x: 0, y: 0, text: "sample", size: 20, color: C_WHITE, 
                 bgcolor: C_BLACK, bgalpha: 0, font_alpha: 255 ,hover: nil)
