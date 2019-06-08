@@ -460,15 +460,15 @@ class TextBox
           case @controll
           when :key
             if Input.key_push?(K_RETURN)
-              @text_ary_index += 1
+              output_if
             end
           when :mouse
             if Input.mouse_push?(M_LBUTTON)
-              @text_ary_index += 1
+              output_if
             end
           when :both
             if Input.key_push?(K_RETURN) || Input.mouse_push?(M_LBUTTON)
-              @text_ary_index += 1
+              output_if
             end
           end
         end
@@ -523,6 +523,14 @@ class TextBox
       @interval.loop do
         @@index += 1 if @@index < @size
       end
+    end
+  end
+
+  def output_if
+    if @@index < @size
+      @@index = @size
+    else
+      @text_ary_index += 1
     end
   end
 end
