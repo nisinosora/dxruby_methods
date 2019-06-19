@@ -198,6 +198,14 @@ class BGM
     @play_check = val
     @bgm.stop
   end
+
+  def set_volume(val)
+    @bgm.set_volume(val)
+  end
+
+  def sets
+    yield @bgm
+  end
 end
 
 #-----------------
@@ -531,6 +539,42 @@ class TextBox
       @@index = @size
     else
       @text_ary_index += 1
+    end
+  end
+end
+
+#-----------------
+#シーン
+#-----------------
+class Scene
+  def initialize
+    @scenes = {}
+  end
+
+  def scene_set(*val)
+    val.each do |v|
+      unless v == nil || v == false
+        @scenes[v] = proc
+      end
+    end
+  end
+
+  def scene_call(*val)
+    val.each do |v|
+      unless @scenes[v] == nil
+        @scenes[v].call
+      else
+        #シーン名が存在しないときの処理
+        #When nothing scene_name's code 
+      end
+    end
+  end
+
+  def scene_unset(*val)
+    val.each do |v|
+      unless v == nil
+        @scenes.delete(v)
+      end
     end
   end
 end

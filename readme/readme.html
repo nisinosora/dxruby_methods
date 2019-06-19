@@ -86,7 +86,15 @@
                 具体的な動きは、サンプルをご確認ください。
               </div>
           </div>
-        </div>
+
+          <div class="ac-cap">
+            <input type="checkbox" id="ac-cap1-3" name="ac-cap3">
+            <label for="ac-cap1-3" class="ac-title">New</label>
+            <div class="content">    
+              "normal", "reverse", "both"で、シンボルも利用可能にしました。<br>
+              :normal, :reverse, :both を使えます。    
+            </div>
+          </div>
       </section>
     
       <section id="hit sectinon2">
@@ -150,6 +158,14 @@
               <p>play, stop</p>
               <p>playは、再生です。</p>
               <p>stopは、停止です。</p>
+              <p>set_volumeは、音量変更です。</p>
+              <p>
+                sets では、DxRubyのSoundクラスの設定が行えます。<br>
+                変数名.sets |bgm| <br>
+                　bgm.set_volume(255) <br>
+                end <br>
+                などです。
+              </p>
             </div>
         </div>
       </section>
@@ -422,6 +438,43 @@
               load <br>
               ロード機能です。セーブした要素番号まで戻します。
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="Scene section9">
+        <h1 class="text-border">Scene</h1>
+        <div class="ac-cap">
+          <input type="checkbox" id="ac-cap9-1" name="ac-cap1">
+          <label for="ac-cap9-1" class="ac-title">引数</label>
+          <div class="content">
+            <p>
+              Scene.new()
+            </p>
+          </div>
+        </div>
+        <div class="ac-cap">
+          <input type="checkbox" id="ac-cap9-2" name="ac-cap2">
+          <label for="ac-cap9-2" class="ac-title">関数</label>
+          <div class="content">
+             <p>
+               scene_set() do; end <br>
+               シーンを設定します。引数には，シンボルか文字か数字が使えます。<br>
+               ブロック形式でシーンを設定します。<br>
+               また、カンマ区切りで複数のシーン名を設定することもできます。<br>
+               同じシーン名を設定した場合、最後に設定されたシーン設定が適用されます。
+             </p>
+            <p>
+              scene_unset() <br>
+              設定したシーンを無効化します。<br>
+              引数にシーン名を入力した後は、呼び出しても実行されません。
+            </p>
+             <p>
+               scene_call() <br>
+               設定したシーンを呼び出します。<br>
+               シーン設定同様、複数シーンを同時に入力できます。<br>
+               ただし、入力された順になります。
+             </p>
           </div>
         </div>
       </section>
