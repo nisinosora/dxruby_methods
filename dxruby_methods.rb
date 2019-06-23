@@ -362,6 +362,7 @@ class TextBox
   @@output = ""
   @@index = 0
   @@key_type = true #テキスト切り替えのキーの有効と無効の切り替え
+  @@key_type_save = 0
   def initialize(x: 0,y: 0, width: 500, height: 100, bgcolor: C_WHITE, font: 25, interval: 5, controll: :both)
     @x = x
     @y = y
@@ -370,12 +371,17 @@ class TextBox
     @bgcolor = bgcolor
     @font = Font.new(font)
     @font_val = font
+    @interval_num = interval
     @interval = SetInterval.new(interval)
     @back = Sprite.new(@x, @y, Image.new(@width, @height, @bgcolor))
     @text_ary = []
     @text_ary_index = 0
     @ary_set_check = false
     @controll = controll
+    if @controll == nil
+      @@key_type = false
+      @@key_type_save = 1
+    end
 
     @vanished = false
     #メニュー
@@ -437,7 +443,7 @@ class TextBox
       if Input.key_push?(@menu_key)
         if @menu_type == true
           @menu_type = false
-          @@key_type = true
+          @@key_type = true if @@key_type_save = 0
         else
           @menu_type = true
           @@key_type = false
@@ -453,7 +459,7 @@ class TextBox
 
   def menu_close
     unless @vanished
-      @@key_type = true
+      @@key_type = true if @@key_type_save == 0
       @menu_type = false
     end
   end
@@ -488,6 +494,21 @@ class TextBox
         
         yield(@text_ary[@text_ary_index], @text_ary_index) if block_given?
       end
+    end
+  end
+
+  def next
+    @text_ary_index += 1
+  end
+
+  def pred
+    @text_ary_index -= 1
+  end
+
+  def change(val)
+    @text_ary_index = val
+    if @text_ary_index > @text_ary_size
+      @text_ary_index = @text_ary_size
     end
   end
 
@@ -527,9 +548,13 @@ class TextBox
 
   def count
     unless @vanished
-      @@output = @@text[0..@@index]
-      @interval.loop do
-        @@index += 1 if @@index < @size
+      if @interval_num == -1
+        output_if
+      else
+        @@output = @@text[0..@@index]
+        @interval.loop do
+          @@index += 1 if @@index < @size
+        end
       end
     end
   end
@@ -551,7 +576,7 @@ class Scene
     @scenes = {}
   end
 
-  def scene_set(*val)
+  def set(*val)
     val.each do |v|
       unless v == nil || v == false
         @scenes[v] = proc
@@ -559,7 +584,7 @@ class Scene
     end
   end
 
-  def scene_call(*val)
+  def call(*val)
     val.each do |v|
       unless @scenes[v] == nil
         @scenes[v].call
@@ -570,7 +595,7 @@ class Scene
     end
   end
 
-  def scene_unset(*val)
+  def unset(*val)
     val.each do |v|
       unless v == nil
         @scenes.delete(v)
