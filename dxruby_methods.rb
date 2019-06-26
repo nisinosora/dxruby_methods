@@ -180,7 +180,7 @@ end
 #-----------------
 class BGM
   attr_accessor :bgm
-  attr_reader :title, path
+  attr_reader :title, :path
   def initialize(file)
     @bgm = Sound.new(file)
     @bgm.loop_count = -1
