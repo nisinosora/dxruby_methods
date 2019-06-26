@@ -180,11 +180,13 @@ end
 #-----------------
 class BGM
   attr_accessor :bgm
-  alias set bgm
+  attr_reader :title, path
   def initialize(file)
     @bgm = Sound.new(file)
     @bgm.loop_count = -1
     @play_check = true
+    @title = File.basename(file, ".*")
+    @path = File.dirname(file)
   end
 
   def play
