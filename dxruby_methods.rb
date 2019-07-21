@@ -551,7 +551,7 @@ class TextBox
   def count
     unless @vanished
       if @interval_num == -1
-        output_if
+        @@output = @@text
       else
         @@output = @@text[0..@@index]
         @interval.loop do

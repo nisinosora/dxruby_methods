@@ -1,6 +1,6 @@
 require_relative '../dxruby_methods'
 
-text = TextBox.new(x: 100, y: 200, width: 300, height: 100, bgcolor: C_GREEN, font: 30, controll: :both)
+text = TextBox.new(x: 100, y: 200, width: 300, height: 100, bgcolor: C_GREEN, font: 30, controll: :both, interval: 5)
 texts = [
   "あいうえお",
   "ABCDE",
