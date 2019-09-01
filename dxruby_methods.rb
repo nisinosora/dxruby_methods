@@ -235,7 +235,8 @@ end
 #-----------------
 class TextSelect
   attr_accessor :text, :size, :x, :y, :color, :bgcolor, :bgalpha, :font_alpha, :hover
-  attr_reader :mouse
+  @@mouse = Sprite.new(0, 0, Image.new(1, 1, C_WHITE))
+  @@mouse.alpha = 0
   def initialize(x: 0, y: 0, text: "sample", size: 20, color: C_WHITE, 
                 bgcolor: C_BLACK, bgalpha: 0, font_alpha: 255 ,hover: nil)
     @x = x
@@ -252,8 +253,6 @@ class TextSelect
     @width = @font.getWidth(@text)
     @sprite = Sprite.new(@x, @y, Image.new(@width, @size, @bgcolor))
     @sprite.alpha = @bgalpha
-    @mouse = Sprite.new(0, 0, Image.new(1, 1, C_WHITE))
-    @mouse.alpha = 0
   end
 
   def draw
@@ -278,7 +277,7 @@ class TextSelect
     mouse
     draw
     @color = @buckup_color
-    if Sprite.check(@sprite, @mouse)  == val_bool
+    if Sprite.check(@sprite, @@mouse)  == val_bool
       @color = @hover unless @hover == nil
       yield if block_given?
     end
@@ -286,8 +285,8 @@ class TextSelect
 
   private
   def mouse
-    @mouse.x = Input.mouse_pos_x
-    @mouse.y = Input.mouse_pos_y
+    @@mouse.x = Input.mouse_pos_x
+    @@mouse.y = Input.mouse_pos_y
   end
 end
 
