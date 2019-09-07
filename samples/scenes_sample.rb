@@ -2,6 +2,7 @@ require_relative '../dxruby_methods'
 
 Window.bgcolor = C_BLUE
 scene = Scene.new(fade: true)
+#fade: falseにするとフェードはオフになります。
 
 #シーン「:first」をセットする
 scene.set(:first) do
