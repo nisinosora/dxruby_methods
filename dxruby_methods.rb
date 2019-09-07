@@ -178,6 +178,7 @@ end
 #-----------------
 #Soundクラスをさらに扱いやすくしたもの
 #-----------------
+#------test--------
 class BGM
   attr_accessor :bgm
   attr_reader :title, :path
