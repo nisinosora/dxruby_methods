@@ -573,8 +573,20 @@ end
 #シーン
 #-----------------
 class Scene
-  def initialize
+  @@now_scene = []
+  @@black_back = Sprite.new(0, 0, Image.new(Window.width, Window.height, C_BLACK))
+  @@black_back.alpha = 0
+  @@scene_back = ""
+  @@scene_back_change = true
+  @@loop_save = ""
+  @@counter = 0
+  def initialize(fade: false)
+    @fade_on = false
+    @fade_on_save = fade
     @scenes = {}
+    @scene_save = ""
+    @fade_play = false
+    @fade_change = true
   end
 
   def set(*val)
@@ -586,12 +598,55 @@ class Scene
   end
 
   def call(*val)
-    val.each do |v|
+    @val = val
+    @@loop_save = val
+    if @@scene_back != val
+      unless @scene_save == ""
+        @val = @scene_save
+      end
+      if @@counter > 0
+        @fade_on = @fade_on_save
+      end
+      @@counter = 1
+      @fade_play = true
+      if @@scene_back_change
+        @@scene_back = val 
+        @@scene_back_change = false
+      end
+    end
+
+    if @fade_play && @fade_on
+      @scene_save = @val
+      fade
+      @@scene_back_change = false
+    end
+
+    @val.each do |v|
       unless @scenes[v] == nil
         @scenes[v].call
       else
         #シーン名が存在しないときの処理
         #When nothing scene_name's code 
+      end
+    end
+    Sprite.draw(@@black_back)
+  end
+
+  def fade
+    if @fade_change
+      @@black_back.alpha += 5
+      if @@black_back.alpha >= 255
+        @fade_change = false
+      end
+    else
+      @@black_back.alpha -= 5
+      if @@black_back.alpha <= 0
+        @@black_back.alpha = 0
+        @fade_change = true
+        @fade_play = false
+        @@scene_back = @@loop_save
+        @scene_save = @@loop_save
+        @@scene_back_change = true
       end
     end
   end

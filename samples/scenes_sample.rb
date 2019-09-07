@@ -1,6 +1,7 @@
 require_relative '../dxruby_methods'
 
-scene = Scene.new
+Window.bgcolor = C_BLUE
+scene = Scene.new(fade: true)
 
 #シーン「:first」をセットする
 scene.set(:first) do
