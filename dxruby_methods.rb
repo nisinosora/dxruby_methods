@@ -574,7 +574,7 @@ end
 #-----------------
 class Scene
   @@now_scene = []
-  @@black_back = Sprite.new(0, 0, Image.new(Window.width * 100, Window.height * 100, C_BLACK))
+  @@black_back = Sprite.new(0, 0, Image.new(Window.width * 10, Window.height * 10, C_BLACK))
   @@black_back.alpha = 0
   @@scene_back = ""
   @@scene_back_change = true
