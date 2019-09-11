@@ -260,14 +260,14 @@ class TextSelect
     @width = @font.getWidth(@text)
     @sprite = Sprite.new(@x, @y, Image.new(@width, @size, @bgcolor))
     @sprite.alpha = @bgalpha
-    Sprite.draw([@sprite, @mouse])
+    Sprite.draw([@sprite, @@mouse])
     Window.draw_font_ex(@x, @y, @text, Font.new(@size), {color: @color, alpha: @font_alpha})
   end
 
   def check(val_bool = true)
     mouse
     @color = @buckup_color
-    if Sprite.check(@sprite, @mouse) == val_bool
+    if Sprite.check(@sprite, @@mouse) == val_bool
       @color = @hover unless @hover == nil
       yield if block_given?
     end
@@ -574,7 +574,7 @@ end
 #-----------------
 class Scene
   @@now_scene = []
-  @@black_back = Sprite.new(0, 0, Image.new(Window.width, Window.height, C_BLACK))
+  @@black_back = Sprite.new(0, 0, Image.new(Window.width * 100, Window.height * 100, C_BLACK))
   @@black_back.alpha = 0
   @@scene_back = ""
   @@scene_back_change = true
