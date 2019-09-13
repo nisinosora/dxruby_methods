@@ -12,4 +12,8 @@ Window.loop do
   #playで再生します。
   bgm.play
   Window.draw_font_ex(0, 0, "音楽が流れています", Font.default)
+  if Input.key_push?(K_RETURN)
+    bgm.stop
+    bgm.dispose
+  end
 end

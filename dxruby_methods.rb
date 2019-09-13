@@ -187,18 +187,23 @@ class BGM
     @play_check = true
     @title = File.basename(file, ".*")
     @path = File.dirname(file)
+    @dispose = false
   end
 
   def play
     if @play_check
-      @play_check = false
-      @bgm.play
+      unless @dispose
+        @play_check = false
+        @bgm.play
+      end
     end
   end
 
   def stop(val = true)
-    @play_check = val
-    @bgm.stop
+    unless @dispose
+      @play_check = val
+      @bgm.stop
+    end
   end
 
   def set_volume(val)
@@ -207,6 +212,11 @@ class BGM
 
   def sets
     yield @bgm
+  end
+
+  def dispose
+    @bgm.dispose unless @bgm.disposed?
+    @dispose = true
   end
 end
 
