@@ -3,6 +3,9 @@ require 'dxruby'
 #-------------------------
 #HPゲージの処理
 #-------------------------
+normal = :normal
+reverse = :reverse
+both = :both
 class HpGage
   attr_accessor :x, :y, :height, :hp, :maxhp,:color, :bgcolor, :alpha, :bgalpha
   def initialize(x: 0, y: 0, height: 10, width: 100, hp: 100, maxhp: 100, color: C_WHITE, 
@@ -34,7 +37,7 @@ class HpGage
   def draw(direction = nil)
     if direction == nil
       case @direction
-      when "normal", "reverse", "both"
+      when "normal", "reverse", "both", :normal, :reverse, :both
         direction = @direction
       else
         direction = "normal"
@@ -48,12 +51,12 @@ class HpGage
     if @gage_value >= 1
       image = Image.new(@gage_value, @height, @color)
       case direction
-      when "normal"
+      when "normal", :normal
         gage = Sprite.new(@x, @y, image)
-      when "reverse"
+      when "reverse", :reverse
         x = (@x - @gage_value) + @width
         gage = Sprite.new(x, @y, image)
-      when "both"
+      when "both", :both
         x = (@x - (@gage_value / 2)) + (@width / 2)
         gage = Sprite.new(x, @y, image)
       end
