@@ -74,104 +74,106 @@ end
 #Spriteクラスでの判定をさらに簡単にしたもの
 #------------------------
 class Hit
-  def self.check(ob1, ob2, val_bool = true)
-    if ob1.class == Array && ob2.class == Array
-      ob1.each do |ob1|
-        ob2.each do |ob2|
+  class << self
+    def check(ob1, ob2, val_bool = true)
+      if ob1.class == Array && ob2.class == Array
+        ob1.each do |ob1|
+          ob2.each do |ob2|
+            if Sprite.check(ob1, ob2) == val_bool
+              yield(ob1, ob2) if block_given?
+            end
+          end
+        end
+      end
+
+      if ob1.class == Array && ob2.class == Sprite
+        ob1.each do |ob1|
           if Sprite.check(ob1, ob2) == val_bool
             yield(ob1, ob2) if block_given?
           end
         end
       end
-    end
 
-    if ob1.class == Array && ob2.class == Sprite
-      ob1.each do |ob1|
+      if ob2.class == Array && ob1.class == Sprite
+        ob2.each do |ob2|
+          if Sprite.check(ob1, ob1) == val_bool
+            yield(ob2, ob1) if block_given?
+          end
+        end
+      end
+
+      if ob1.class == Sprite && ob2.class == Sprite
         if Sprite.check(ob1, ob2) == val_bool
           yield(ob1, ob2) if block_given?
         end
       end
     end
 
-    if ob2.class == Array && ob1.class == Sprite
-      ob2.each do |ob2|
-        if Sprite.check(ob1, ob1) == val_bool
-          yield(ob2, ob1) if block_given?
-        end
-      end
-    end
-
-    if ob1.class == Sprite && ob2.class == Sprite
-      if Sprite.check(ob1, ob2) == val_bool
-        yield(ob1, ob2) if block_given?
-      end
-    end
-  end
-
-  def self.check_index(ob1, ob2, val_bool = true)
-    if ob1.class == Array && ob2.class == Array
-      ob1.each_with_index do |ob1, index|
-        ob2.each_with_index do |ob2, index2|
-          if Sprite.check(ob1, ob2) == val_bool
-            yield(index, index2) if block_given?
+    def check_index(ob1, ob2, val_bool = true)
+      if ob1.class == Array && ob2.class == Array
+        ob1.each_with_index do |ob1, index|
+          ob2.each_with_index do |ob2, index2|
+            if Sprite.check(ob1, ob2) == val_bool
+              yield(index, index2) if block_given?
+            end
           end
         end
       end
-    end
 
-    if ob1.class == Array && ob2.class == Sprite
-      ob1.each_with_index do |ob1, index|
-        if Sprite.check(ob1, ob2) == val_bool
-          yield(index) if block_given?
-        end
-      end
-    end
-
-    if ob2.class == Array && ob1.class == Sprite
-      ob2.each_with_index do |ob2, index|
-        if Sprite.check(ob1, ob2) == val_bool
-          yield(index) if block_given?
-        end
-      end
-    end
-
-    if ob1.class == Sprite && ob2.class == Sprite
-      if Sprite.check(ob1, ob2) == val_bool
-        yield if block_given?
-      end
-    end
-  end
-
-  def self.check_with_index(ob1, ob2, val_bool = true)
-    if ob1.class == Array && ob2.class == Array
-      ob1.each_with_index do |ob1, index|
-        ob2.each_with_index do |ob2, index2|
+      if ob1.class == Array && ob2.class == Sprite
+        ob1.each_with_index do |ob1, index|
           if Sprite.check(ob1, ob2) == val_bool
-            yield(index, index2, ob1, ob2) if block_given?
+            yield(index) if block_given?
           end
         end
       end
-    end
 
-    if ob1.class == Array && ob2.class == Sprite
-      ob1.each_with_index do |ob1, index|
+      if ob2.class == Array && ob1.class == Sprite
+        ob2.each_with_index do |ob2, index|
+          if Sprite.check(ob1, ob2) == val_bool
+            yield(index) if block_given?
+          end
+        end
+      end
+
+      if ob1.class == Sprite && ob2.class == Sprite
         if Sprite.check(ob1, ob2) == val_bool
-          yield(index, ob1) if block_given?
+          yield if block_given?
         end
       end
     end
 
-    if ob2.class == Array && ob1.class == Sprite
-      ob2.each_with_index do |ob2, index|
-        if Sprite.check(ob1, ob2) == val_bool
-          yield(index, ob2) if block_given?
+    def check_with_index(ob1, ob2, val_bool = true)
+      if ob1.class == Array && ob2.class == Array
+        ob1.each_with_index do |ob1, index|
+          ob2.each_with_index do |ob2, index2|
+            if Sprite.check(ob1, ob2) == val_bool
+              yield(index, index2, ob1, ob2) if block_given?
+            end
+          end
         end
       end
-    end
 
-    if ob1.class == Sprite && ob2.class == Sprite
-      if Sprite.check(ob1, ob2) == val_bool
-        yield if block_given?
+      if ob1.class == Array && ob2.class == Sprite
+        ob1.each_with_index do |ob1, index|
+          if Sprite.check(ob1, ob2) == val_bool
+            yield(index, ob1) if block_given?
+          end
+        end
+      end
+
+      if ob2.class == Array && ob1.class == Sprite
+        ob2.each_with_index do |ob2, index|
+          if Sprite.check(ob1, ob2) == val_bool
+            yield(index, ob2) if block_given?
+          end
+        end
+      end
+
+      if ob1.class == Sprite && ob2.class == Sprite
+        if Sprite.check(ob1, ob2) == val_bool
+          yield if block_given?
+        end
       end
     end
   end
